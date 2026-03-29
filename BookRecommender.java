@@ -75,6 +75,10 @@ public class BookRecommender {
         }
         Map<String, Integer> map = graph.get(book);//Get the neighbor of this book
         List<String> list = new ArrayList<>(map.keySet());//Put in the list
+        if (map.isEmpty()) {//If empty
+            System.out.println("NONE");//print none
+            return;
+        }
         for (int i = 0; i < list.size()-1; i++){//Outer loop
             for (int j = 0; j < list.size()-1-i; j++){//Inner loop
                 String bookA = list.get(j);//Get book on left
@@ -102,6 +106,10 @@ public class BookRecommender {
     static void doLikeHistory(String[] args){
         Map<String, Integer> score = new HashMap<>();//Calcuate the score
         Set<String> input = new HashSet<>();//Record already input
+        if (score.isEmpty()) {//If empty
+            System.out.println("NONE");//print none
+            return;
+        }
         for (int i =2; i < args.length; i++){//Start third parameter
             input.add(args[i]);//Add the book already read
         }
@@ -187,6 +195,10 @@ public class BookRecommender {
             }
         }
         List<String> books = new ArrayList<>(bookScore.keySet());//Extract ID for sorting
+        if (bookScore.isEmpty()) {//If empty
+            System.out.println("NONE");//Print none
+            return;
+        }
         for (int i = 0; i < books.size() - 1; i++) {  //Outer loop controls the number of passes
             for (int j = 0; j < books.size() - 1 - i; j++) {//compares adjacent elements
                 String bookA = books.get(j);// Get left book ID
@@ -213,6 +225,10 @@ public class BookRecommender {
 
     //part5
     static void doShortestPath(String start, String end) {//Check shortest path
+        if (!graph.containsKey(start) || !graph.containsKey(end)) {//If not start or ending
+            System.out.println("NONE");//print none
+            return;
+        }
         List<Integer> weights = new ArrayList<>();//Collect all weight
         for (String b : graph.keySet()) {//Walk all the node
             for (int wei : graph.get(b).values()) {//Walk all edge
