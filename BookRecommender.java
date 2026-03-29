@@ -7,23 +7,30 @@ public class BookRecommender {
     static Map<String, Map<String, Integer>> graph = new HashMap<>();//Record the graph
 
     public static void main(String[] args) {
-        if (args.length < 2) return;
-        String file = args[0]; //csv routine
-        String command = args[1];//Command
         try {
-            loadData(file);
-        }catch(Exception e){
-            return;
-        }
-        buildGraph();
-        if (command.equals("single_book_mn")){
-            doSingleBook(args[2]);
-        }else if(command.equals("like_history_mn")){
-            doLikeHistory(args);
-        }else if(command.equals("user_cf")){
-            doUserCF(args[2]);
-        }else if(command.equals("shortest_path")){
-            doShortestPath(args[2],args[3]);
+            if (args.length < 2) {//If fewer than 2 argument
+                System.out.println("NONE");//Print none
+                return;
+            }
+            loadData(args[0]);//load csv
+            buildGraph();//build graph
+            String cmd = args[1];//extra command
+            if (cmd.equals("single_book_mn")) {//2a
+                if (args.length >= 3) doSingleBook(args[2]);
+                else System.out.println("NONE");
+            } else if (cmd.equals("like_history_mn")) {//2b
+                doLikeHistory(args);
+            } else if (cmd.equals("user_cf")) {//part4
+                if (args.length >= 3) doUserCF(args[2]);
+                else System.out.println("NONE");
+            } else if (cmd.equals("shortest_path")) {//part5
+                if (args.length >= 4) doShortestPath(args[2], args[3]);
+                else System.out.println("NONE");
+            } else {
+                System.out.println("NONE");//Not recognize
+            }
+        } catch (Exception e) {//If error
+            System.out.println("NONE");
         }
     }
 
