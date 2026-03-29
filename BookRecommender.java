@@ -6,13 +6,16 @@ public class BookRecommender {
     static Map<String, Set<String>> bookToUsers = new HashMap<>();//Record the book to user
     static Map<String, Map<String, Integer>> graph = new HashMap<>();//Record the graph
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+        if (args.length < 2) return;
         String file = args[0]; //csv routine
         String command = args[1];//Command
-
-        loadData(file);
+        try {
+            loadData(file);
+        }catch(Exception e){
+            return;
+        }
         buildGraph();
-
         if (command.equals("single_book_mn")){
             doSingleBook(args[2]);
         }else if(command.equals("like_history_mn")){
